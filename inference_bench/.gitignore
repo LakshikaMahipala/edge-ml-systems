@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+.env
+.DS_Store
+.vscode/
+.idea/
+
+# Generated outputs
+inference_bench/outputs/
+inference_bench/data/
