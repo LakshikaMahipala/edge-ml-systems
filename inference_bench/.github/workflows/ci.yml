@@ -9,9 +9,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
 
-      - name: Structure check
+      - name: Install deps
         run: |
-          test -d inference_bench
-          test -d inference_bench/src
-          test -f inference_bench/README.md
+          python -m pip install --upgrade pip
+          pip install -r week01_inference_bench/requirements.txt
+
+      - name: Run timer self-test
+        run: |
+          python week01_inference_bench/run_timer_selftest.py
