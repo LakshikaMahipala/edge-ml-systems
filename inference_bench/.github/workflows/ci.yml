@@ -1,0 +1,17 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Structure check
+        run: |
+          test -d inference_bench
+          test -d inference_bench/src
+          test -f inference_bench/README.md
