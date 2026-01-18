@@ -23,3 +23,9 @@ What to record into docs/metrics.md
 - End-to-end p99 (ms)
 - Device (CPU/GPU name)
 - Torch version + platform string printed by the script
+
+**** Profiling
+- Breakdown timing + JSON export:
+  python inference_bench/run_pytorch_benchmark.py --model resnet18 --device cpu --save_json
+- Operator-level profiler:
+  python inference_bench/run_profile_pytorch.py --model resnet18 --device cpu
