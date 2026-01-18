@@ -1,4 +1,4 @@
-How to Run (will be expanded on Day 2)
+How to Run 
 1) Install dependencies
    - See requirements.txt
 2) Run timer self-test
