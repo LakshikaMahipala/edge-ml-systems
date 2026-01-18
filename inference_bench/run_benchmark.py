@@ -1,57 +1,79 @@
+# inference_bench/run_benchmark.py
 from __future__ import annotations
 
 import argparse
-import torch
-
-from week01_inference_bench.src.infer import build_model, default_hooks, resolve_device
-from week01_inference_bench.src.timer import benchmark
-
-
-def parse_args() -> argparse.Namespace:
-    p = argparse.ArgumentParser(description="Week01 baseline PyTorch inference benchmark (Day 3)")
-    p.add_argument("--device", default="cpu", choices=["auto", "cpu", "cuda"])
-    p.add_argument("--model", default="resnet18", choices=["resnet18"])
-    p.add_argument("--pretrained", action="store_true")
-    p.add_argument("--batch-size", type=int, default=32)
-    p.add_argument("--warmup-batches", type=int, default=10)
-    p.add_argument("--measure-batches", type=int, default=50)
-    return p.parse_args()
+import math
+import platform
+import sys
+import time
+from inference_bench.src.timer import Timer
 
 
-def main() -> int:
-    args = parse_args()
-    device = resolve_device(args.device)
+def preprocess(n: int) -> None:
+    # Dummy preprocessing: some math ops
+    acc = 0.0
+    for i in range(1, n):
+        acc += math.sin(i) * 0.000001
+    if acc < 0:
+        raise RuntimeError("Impossible")
 
-    model = build_model(args.model, pretrained=bool(args.pretrained)).to(device)
-    hooks = default_hooks()
 
-    # Day 3: synthetic batch so we validate the pipeline + measurement first.
-    batch = torch.randn(args.batch_size, 3, 224, 224, device=device)
+def inference(n: int) -> None:
+    # Dummy "inference": heavier math ops
+    acc = 0.0
+    for i in range(1, n):
+        acc += math.sqrt(i)
+    if acc < 0:
+        raise RuntimeError("Impossible")
 
-    sync_fn = torch.cuda.synchronize if device.type == "cuda" else None
 
-    @torch.no_grad()
-    def step(i: int) -> int:
-        hooks.before_batch(i)
+def postprocess(n: int) -> None:
+    # Dummy postprocess
+    s = 0.0
+    for i in range(1, n):
+        s += (i % 7) * 0.001
+    if s < 0:
+        raise RuntimeError("Impossible")
 
-        # Preprocess (minimal Day3): already correct shape on device
-        x = batch
 
-        # Model forward
-        logits = model(x)
+def main() -> None:
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--warmup", type=int, default=20)
+    ap.add_argument("--iters", type=int, default=200)
+    ap.add_argument("--pre_n", type=int, default=10_000)
+    ap.add_argument("--infer_n", type=int, default=50_000)
+    ap.add_argument("--post_n", type=int, default=10_000)
+    args = ap.parse_args()
 
-        # Postprocess (minimal): keep logits
-        hooks.after_batch(i, logits)
+    timer = Timer(warmup_iters=args.warmup, measure_iters=args.iters)
 
-        return int(x.shape[0])
+    # Measure components
+    r_pre = timer.run(lambda: preprocess(args.pre_n))
+    r_inf = timer.run(lambda: inference(args.infer_n))
+    r_post = timer.run(lambda: postprocess(args.post_n))
 
-    r = benchmark(step, warmup=args.warmup_batches, iters=args.measure_batches, synchronize_fn=sync_fn)
+    # Measure end-to-end pipeline
+    def e2e() -> None:
+        preprocess(args.pre_n)
+        inference(args.infer_n)
+        postprocess(args.post_n)
 
-    print("=== Week01 Day3: PyTorch baseline ===")
-    print(f"device: {device}")
-    print(r.summary())
-    return 0
+    r_e2e = timer.run(e2e)
+
+    print("Inference Bench (Day 2 baseline)")
+    print(f"Python: {sys.version.split()[0]}")
+    print(f"Platform: {platform.platform()}")
+    print(f"Args: warmup={args.warmup}, iters={args.iters}, pre_n={args.pre_n}, infer_n={args.infer_n}, post_n={args.post_n}")
+    print("")
+
+    print("Preprocess:", r_pre.summary())
+    print("Inference :", r_inf.summary())
+    print("Postproc  :", r_post.summary())
+    print("")
+    print("End-to-end:", r_e2e.summary())
+    print("")
+    print("Note: End-to-end p50 should be roughly pre+p50 + inf+p50 + post+p50 (not exact, but comparable).")
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    main()
