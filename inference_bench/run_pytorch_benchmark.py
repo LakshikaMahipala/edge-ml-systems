@@ -6,7 +6,8 @@ import platform
 import sys
 
 import torch
-
+from inference_bench.src.system_info import get_system_info
+from inference_bench.src.memory import get_peak_rss_mb
 from inference_bench.src.timer import Timer
 from inference_bench.src.pytorch_infer import PyTorchConfig, PyTorchRunner
 from inference_bench.src.reporting import RunMeta, PerfSummary, print_budget, save_json
@@ -25,6 +26,7 @@ def main() -> None:
     ap.add_argument("--warmup", type=int, default=20)
     ap.add_argument("--iters", type=int, default=100)
     ap.add_argument("--topk", type=int, default=5)
+    ap.add_argument("--batch", type=int, default=1)
     ap.add_argument(
         "--save_json",
         action="store_true",
@@ -37,6 +39,7 @@ def main() -> None:
         device=args.device,
         input_size=args.input_size,
         topk=args.topk,
+        batch=args.batch,
     )
     runner = PyTorchRunner(cfg)
 
@@ -81,7 +84,10 @@ def main() -> None:
     print(f"Sample top-{args.topk}: {list(zip(pred_idx, [round(p, 6) for p in pred_prob]))}")
     print("")
 
-    # ---- Day 4 additions: PerfSummary + budget printing + optional JSON save ----
+    sysinfo = get_system_info(args.device)
+    print("System Info:", sysinfo.to_dict())
+    print("")
+    # ---- additions: PerfSummary + budget printing + optional JSON save ----
     perf = PerfSummary(
         preprocess=r_pre.summary(),
         inference=r_inf.summary(),
@@ -107,7 +113,8 @@ def main() -> None:
     if args.save_json:
         out_path = save_json(meta, perf)
         print(f"Saved JSON: {out_path}")
-
+    mem = get_peak_rss_mb()
+    print(f"Peak RSS: {mem.peak_rss_mb:.2f} MB ({mem.note})")
 
 if __name__ == "__main__":
     main()
