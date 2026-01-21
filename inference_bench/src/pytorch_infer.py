@@ -11,11 +11,12 @@ import torch.nn.functional as F
 @dataclass
 class PyTorchConfig:
     model_name: str = "resnet18"
-    device: str = "cpu"          # "cpu" now; later can be "cuda"
-    input_size: int = 224        # image size (H=W)
+    device: str = "cpu"
+    input_size: int = 224
     num_classes: int = 1000
     topk: int = 5
     channels: int = 3
+    batch: int = 1
 
 
 class PyTorchRunner:
@@ -37,11 +38,12 @@ class PyTorchRunner:
 
         # Pre-allocate an input tensor to reduce allocation noise
         self._x = torch.rand(
-            (1, cfg.channels, cfg.input_size, cfg.input_size),
+            (cfg.batch, cfg.channels, cfg.input_size, cfg.input_size),
             dtype=torch.float32,
             device=self.device,
         )
 
+    
     def _load_model(self, name: str) -> torch.nn.Module:
         import torchvision.models as models
 
