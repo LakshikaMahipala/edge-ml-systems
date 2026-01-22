@@ -44,4 +44,9 @@ python inference_bench/run_latency_sweep.py --model resnet18 --device cpu --inpu
 Mini-project B (queueing / p99 intuition):
 python inference_bench/run_queue_sim.py --service_ms 20 --arrival_rps 30
 
-
+**** Documentation
+- Measurement standard: docs/methodology_measurement.md
+- Mini-Project 0 report: docs/mini_project_0_report.md
+- Embedded constraints checklist: docs/embedded_constraints_checklist.md
+- Metrics table: docs/metrics.md
+- Daily log: docs/daily_log.md
