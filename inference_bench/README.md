@@ -50,3 +50,15 @@ python inference_bench/run_queue_sim.py --service_ms 20 --arrival_rps 30
 - Embedded constraints checklist: docs/embedded_constraints_checklist.md
 - Metrics table: docs/metrics.md
 - Daily log: docs/daily_log.md
+
+**** Accuracy Evaluation (Top-1 / Top-5)
+
+Goal
+Compute top-1 and top-5 accuracy with a reproducible evaluation loop.
+
+Run (later, locally)
+python inference_bench/run_accuracy_eval.py --model resnet18 --device cpu --batch 64 --max_batches 50
+
+What to record
+- top1, top5, n
+- system info lines printed by the script
