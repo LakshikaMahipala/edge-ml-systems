@@ -62,3 +62,11 @@ python inference_bench/run_accuracy_eval.py --model resnet18 --device cpu --batc
 What to record
 - top1, top5, n
 - system info lines printed by the script
+
+**** Pipeline demo (Producer/Consumer)
+
+Purpose
+Introduce backpressure and concurrency structure used in real-time inference systems.
+
+Run 
+python inference_bench/run_pipeline_demo.py --model resnet18 --device cpu --queue_size 8 --num_items 200
