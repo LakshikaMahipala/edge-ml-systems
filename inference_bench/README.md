@@ -70,3 +70,15 @@ Introduce backpressure and concurrency structure used in real-time inference sys
 
 Run 
 python inference_bench/run_pipeline_demo.py --model resnet18 --device cpu --queue_size 8 --num_items 200
+
+
+**** C++ preprocessing via pybind11
+
+Goal
+Call the C++ preprocessing pipeline from Python to prepare for benchmarking speedups.
+
+Build extension
+See: cpp_preproc/python/README.md
+
+Demo 
+python inference_bench/run_cpp_preproc_demo.py --image path/to/image.jpg --model resnet18 --device cpu
