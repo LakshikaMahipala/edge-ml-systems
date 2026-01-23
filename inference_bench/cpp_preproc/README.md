@@ -35,3 +35,17 @@ Common failure modes this code avoids
 - Wrong channel order (BGR vs RGB)
 - Wrong scale (0..255 instead of 0..1)
 - Wrong layout (HWC vs CHW)
+
+Tests (correctness first)
+Build with tests:
+- mkdir -p build && cd build
+- cmake -S ../cpp_preproc -B . -DBUILD_TESTING=ON
+- cmake --build . -j
+Run tests:
+- ctest --output-on-failure
+
+Why tests matter
+Preprocessing bugs silently destroy accuracy. These tests guarantee:
+- correct BGR->RGB conversion
+- correct normalization math
+- correct HWC->CHW layout mapping
