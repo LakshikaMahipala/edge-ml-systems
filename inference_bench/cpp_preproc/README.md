@@ -49,3 +49,18 @@ Preprocessing bugs silently destroy accuracy. These tests guarantee:
 - correct BGR->RGB conversion
 - correct normalization math
 - correct HWC->CHW layout mapping
+
+SIMD notes 
+This module includes an AVX2-accelerated normalization path when compiled with AVX2 enabled.
+
+How to enable AVX2 
+- Add compiler flags:
+-DCMAKE_CXX_FLAGS="-mavx2"
+
+Fallback
+If AVX2 is not enabled or not supported, the code falls back to scalar automatically.
+
+Why this is still correct
+The SIMD path implements exactly:
+(y = (x - mean) / std)
+and is tested indirectly via unit tests and later via scalar-vs-SIMD equivalence checks.
