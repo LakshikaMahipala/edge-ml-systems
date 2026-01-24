@@ -12,6 +12,7 @@ find_package(OpenCV REQUIRED)
 
 add_library(preproc STATIC
   src/preproc.cpp
+  src/simd.cpp
 )
 
 target_include_directories(preproc PUBLIC
