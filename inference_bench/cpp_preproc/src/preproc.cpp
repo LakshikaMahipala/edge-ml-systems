@@ -1,4 +1,5 @@
 #include "preproc.hpp"
+#include "simd.hpp"
 
 #include <opencv2/opencv.hpp>
 #include <stdexcept>
@@ -43,6 +44,7 @@ Tensor load_resize_normalize(
   t.data.resize(static_cast<size_t>(t.n) * t.c * t.h * t.w);
 
   // HWC -> CHW + normalize
+  "
   for (int y = 0; y < out_h; ++y) {
     const cv::Vec3f* row = f32.ptr<cv::Vec3f>(y);
     for (int x = 0; x < out_w; ++x) {
@@ -53,6 +55,19 @@ Tensor load_resize_normalize(
       }
     }
   }
+  "
+  // f32 is CV_32FC3 (RGB, HWC)
+  // We will call SIMD-aware conversion+normalize into CHW.
+  const float* hwc_ptr = reinterpret_cast<const float*>(f32.data);
+
+  preproc::hwc_rgb_to_chw_normalize(
+      hwc_ptr,
+      out_h,
+      out_w,
+      norm.mean,
+      norm.std,
+      t.data.data()
+  );
 
   return t;
 }
