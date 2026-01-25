@@ -93,3 +93,17 @@ What to record
 - end-to-end p50/p99 for both paths
 - speedup numbers (Python/C++)
 - save JSON and update docs/metrics.md
+
+
+**** File I/O benchmark (edge realism)
+
+Run
+python inference_bench/run_file_io_benchmark.py --path path/to/large_file.bin --iters 30 --chunk_kb 256
+
+Optional cold-cache attempt (Linux, may require permissions)
+python inference_bench/run_file_io_benchmark.py --path path/to/large_file.bin --iters 10 --chunk_kb 256 --drop_caches
+
+Record
+- p50, p99, mean read latency
+- throughput (MB/s)
+- whether cache dropping was possible
