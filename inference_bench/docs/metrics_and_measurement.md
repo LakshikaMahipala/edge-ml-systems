@@ -30,7 +30,22 @@ Accuracy
 - Top-5: correct if label appears in top 5 predictions    
 Accuracy is meaningless without stating:                  
 - dataset and preprocessing                  
-- evaluation subset size (n)                             
+- evaluation subset size (n)
+
+Speedup Study (Mini-Project 1A)
+
+- python inference_bench/run_preproc_speedup.py --model resnet18 --device cpu --input_size 224 --batch 1 --warmup 20 --iters 100 --image path/to/image.jpg --save_json
+  
+Produces:
+- Path A (Python preprocess) PerfSummary
+- Path B (C++ preprocess) PerfSummary
+- Optional JSON outputs for both paths
+  
+Record:
+- preprocess p50/p99 and end-to-end p50/p99 for both paths
+- compute speedup ratios
+
+                              
 
 3) Where truth lives (repo policy)
 - docs/metrics.md: human-readable summary table (single source of truth)
