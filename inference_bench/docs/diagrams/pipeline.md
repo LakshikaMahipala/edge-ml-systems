@@ -1,15 +1,13 @@
-Week 2 Integrated Pipeline (Concept)
+# Integrated Pipeline (Concept)
 
-            +-------------------+
-image file ->| C++ preprocess    |-> NCHW float32 -> +------------------+
-            | (OpenCV + SIMD)   |                   | PyTorch forward   |
-            +-------------------+                   +------------------+
-                                                        |
-                                                        v
-                                                   +-----------+
-                                                   | postproc  |
-                                                   +-----------+
-
+```text
++-------------+      +-------------------------+      +------------------+      +-----------+
+| image file  | ---> | C++ preprocess          | ---> | PyTorch forward  | ---> | postproc  |
+| (disk)      |      | (OpenCV + SIMD)         |      | (model inference)|      | (top-k)   |
++-------------+      +-------------------------+      +------------------+      +-----------+
+                          |
+                          v
+                   NCHW float32 tensor
 Benchmark compares:
 Path A: Python preprocess -> forward -> postproc
 Path B: C++ preprocess -> forward -> postproc
