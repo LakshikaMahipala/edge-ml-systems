@@ -82,3 +82,14 @@ See: cpp_preproc/python/README.md
 
 Demo 
 python inference_bench/run_cpp_preproc_demo.py --image path/to/image.jpg --model resnet18 --device cpu
+
+**** Mini-Project 1A — Python vs C++ preprocessing speedup
+
+Benchmark 
+python inference_bench/run_preproc_speedup.py --model resnet18 --device cpu --input_size 224 --batch 1 --warmup 20 --iters 100 --image path/to/image.jpg --save_json
+
+What to record
+- preprocess p50/p99 for both paths
+- end-to-end p50/p99 for both paths
+- speedup numbers (Python/C++)
+- save JSON and update docs/metrics.md
