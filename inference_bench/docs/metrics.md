@@ -12,3 +12,4 @@ Table
 | inference_bench | TBD | TBD | TBD | TBD | TBD | TBD | TBD | TBD | Day 2 will fill this |
 | inference_bench | resnet18 | cpu | 1 | 1x3x224x224 | TBD | TBD | TBD | TBD | Week2 Day6 Path A: Python preprocess |
 | inference_bench | resnet18 | cpu | 1 | 1x3x224x224 | TBD | TBD | TBD | TBD | Week2 Day6 Path B: C++ preprocess (pybind11 + SIMD) |
+| inference_bench | file_io_read | cpu | - | file_path=TBD | p50=TBD | p99=TBD | mean=TBD | throughput=TBD | Week3 Day1 file I/O benchmark; run later |
