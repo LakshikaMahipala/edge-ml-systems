@@ -64,3 +64,17 @@ Why this is still correct
 The SIMD path implements exactly:
 (y = (x - mean) / std)
 and is tested indirectly via unit tests and later via scalar-vs-SIMD equivalence checks.
+
+Cross-compiling
+
+This repo includes CMake toolchain files under /toolchains for:
+- ARM64 Linux (aarch64)
+- ARMv7 Linux (armhf)
+
+Later (Linux host) example:
+- cmake -S cpp_preproc -B build_aarch64 -DCMAKE_TOOLCHAIN_FILE=toolchains/aarch64-linux-gnu.cmake
+- cmake --build build_aarch64 -j
+
+Note:
+For real device-accurate builds you will typically need a sysroot:
+- cmake ... -DCMAKE_SYSROOT=/path/to/target/sysroot
