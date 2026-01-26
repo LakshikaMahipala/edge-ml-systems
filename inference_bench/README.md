@@ -140,3 +140,14 @@ python inference_bench/run_video_decode_benchmark.py --video path/to/video.mp4 -
 Record
 - decode p50/p99 (ms)
 - approx decode FPS
+
+**** Mini-project 1B — ONNX Runtime benchmark
+
+Install deps (later)
+pip install -r inference_bench/requirements.txt
+
+Run (later)
+python inference_bench/run_onnxruntime_benchmark.py --model resnet18 --input_size 224 --batch 1 --warmup 20 --iters 100 --save_json
+
+Compare against PyTorch
+python inference_bench/run_pytorch_benchmark.py --model resnet18 --device cpu --input_size 224 --warmup 20 --iters 100 --topk 5 --save_json
