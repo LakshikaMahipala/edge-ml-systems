@@ -26,4 +26,11 @@ Repository Map
 - TinyML-Gesture-TCN/  TinyML project work
 - .github/workflows/  CI automation (later we will use this for reproducible runs)
 
+Edge build & deployment 
+See docs/edge_build_deployment.md for:
+- reproducible Docker workflow
+- cross-compilation toolchains
+- I/O + decode benchmarks
+- PyTorch vs ONNX Runtime comparison
+- where to record p50/p99 metrics
 
