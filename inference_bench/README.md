@@ -107,3 +107,12 @@ Record
 - p50, p99, mean read latency
 - throughput (MB/s)
 - whether cache dropping was possible
+
+**** Transfer budget model + input sources
+
+Transfer budget demo (later)
+python inference_bench/run_transfer_budget_demo.py --n 1 --c 3 --h 224 --w 224 --dtype_bytes 4
+
+Source smoketest (later)
+python inference_bench/run_source_smoketest.py --image_folder path/to/images --max_frames 10
+python inference_bench/run_source_smoketest.py --video path/to/video.mp4 --max_frames 10
