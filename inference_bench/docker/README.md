@@ -29,3 +29,9 @@ If you want to use local files:
 Notes
 - This image is a dev container (build + run).
 - Performance numbers inside containers may differ slightly from host due to isolation and filesystem differences.
+
+Docker (reproducible dev environment)
+- Build: docker build -f docker/Dockerfile -t edge-ml-systems:dev .
+- Run:   docker run --rm -it edge-ml-systems:dev bash
+- Verify: python -c "import cpp_preproc_ext; print('OK')"
+See docker/README.md for full instructions.
