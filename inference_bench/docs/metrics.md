@@ -4,6 +4,8 @@ Rules
 - Always report p50 and p99 latency (ms)
 - Always state: device, batch size, input size, and what "end-to-end" includes
 - If accuracy is reported, specify dataset subset used
+- Streaming closed-loop baseline (open_loop_fps=0)
+- Streaming open-loop baseline (open_loop_fps=30, drop off/on)
 
 Table
 
