@@ -116,3 +116,18 @@ python inference_bench/run_transfer_budget_demo.py --n 1 --c 3 --h 224 --w 224 -
 Source smoketest (later)
 python inference_bench/run_source_smoketest.py --image_folder path/to/images --max_frames 10
 python inference_bench/run_source_smoketest.py --video path/to/video.mp4 --max_frames 10
+
+**** Streaming benchmark (source -> queue -> consumer)
+
+Closed-loop (backpressure, protects p99)
+python inference_bench/run_streaming_benchmark.py --image_folder path/to/images --max_items 200 --queue_size 8 --open_loop_fps 0
+
+Open-loop (simulate camera FPS, may queue or drop)
+python inference_bench/run_streaming_benchmark.py --image_folder path/to/images --max_items 500 --queue_size 8 --open_loop_fps 30
+python inference_bench/run_streaming_benchmark.py --image_folder path/to/images --max_items 500 --queue_size 8 --open_loop_fps 30 --drop_when_full
+
+Record
+- throughput
+- e2e p50/p99
+- queue wait p50/p99
+- service p50/p99
