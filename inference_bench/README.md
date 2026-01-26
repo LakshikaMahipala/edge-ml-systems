@@ -131,3 +131,12 @@ Record
 - e2e p50/p99
 - queue wait p50/p99
 - service p50/p99
+
+**** Camera/video stack — decode benchmark
+
+Run (later)
+python inference_bench/run_video_decode_benchmark.py --video path/to/video.mp4 --warmup 20 --frames 200
+
+Record
+- decode p50/p99 (ms)
+- approx decode FPS
