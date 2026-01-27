@@ -1,3 +1,4 @@
+#include "src/cuda_events.h"
 #include <cuda_runtime.h>
 #include <cstdio>
 #include <vector>
