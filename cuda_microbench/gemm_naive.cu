@@ -5,6 +5,8 @@
 #include <cmath>
 #include <algorithm>
 
+#include "src/cuda_events.h"
+
 static void check(cudaError_t e, const char* msg) {
     if (e != cudaSuccess) {
         std::fprintf(stderr, "CUDA error: %s: %s\n", msg, cudaGetErrorString(e));
@@ -26,7 +28,8 @@ __global__ void gemm_naive(const float* A, const float* B, float* C, int M, int 
     }
 }
 
-static void cpu_gemm(const std::vector<float>& A, const std::vector<float>& B, std::vector<float>& C, int M, int N, int K) {
+static void cpu_gemm(const std::vector<float>& A, const std::vector<float>& B,
+                     std::vector<float>& C, int M, int N, int K) {
     for (int i = 0; i < M; ++i) {
         for (int j = 0; j < N; ++j) {
             float acc = 0.0f;
@@ -43,7 +46,10 @@ int main(int argc, char** argv) {
     int N = (argc > 2) ? std::atoi(argv[2]) : 512;
     int K = (argc > 3) ? std::atoi(argv[3]) : 512;
 
-    std::printf("Naive GEMM: M=%d N=%d K=%d\n", M, N, K);
+    int warmup = (argc > 4) ? std::atoi(argv[4]) : 10;
+    int iters  = (argc > 5) ? std::atoi(argv[5]) : 50;
+
+    std::printf("Naive GEMM: M=%d N=%d K=%d | warmup=%d iters=%d\n", M, N, K, warmup, iters);
 
     std::mt19937 rng(0);
     std::uniform_real_distribution<float> dist(-1.0f, 1.0f);
@@ -63,13 +69,32 @@ int main(int argc, char** argv) {
     dim3 block(16, 16);
     dim3 grid((N + block.x - 1) / block.x, (M + block.y - 1) / block.y);
 
-    gemm_naive<<<grid, block>>>(dA, dB, dC, M, N, K);
-    check(cudaGetLastError(), "kernel launch");
-    check(cudaDeviceSynchronize(), "sync");
+    // Warmup (not timed)
+    for (int i = 0; i < warmup; ++i) {
+        gemm_naive<<<grid, block>>>(dA, dB, dC, M, N, K);
+    }
+    check(cudaGetLastError(), "warmup kernel launch");
+    check(cudaDeviceSynchronize(), "warmup sync");
 
+    // Timed loop (kernel-only)
+    CudaEventTimer t;
+    t.tic();
+    for (int i = 0; i < iters; ++i) {
+        gemm_naive<<<grid, block>>>(dA, dB, dC, M, N, K);
+    }
+    check(cudaGetLastError(), "timed kernel launch");
+    float ms_total = t.toc_ms();
+    check(cudaDeviceSynchronize(), "final sync");
+
+    float avg_ms = ms_total / iters;
+    double flops = 2.0 * double(M) * double(N) * double(K);
+    double gflops = (flops / 1e9) / (avg_ms / 1e3);
+    std::printf("Kernel avg time: %.3f ms | Throughput: %.2f GFLOP/s\n", avg_ms, gflops);
+
+    // Copy result once for correctness
     check(cudaMemcpy(hC.data(), dC, hC.size() * sizeof(float), cudaMemcpyDeviceToHost), "D2H C");
 
-    // Reference on CPU (slow, but fine for correctness at these sizes)
+    // CPU reference (slow but fine at moderate sizes)
     cpu_gemm(hA, hB, hCref, M, N, K);
 
     // Compare
@@ -85,7 +110,6 @@ int main(int argc, char** argv) {
     }
 
     std::printf("Correctness: max_abs_err=%.6e max_rel_err=%.6e\n", max_abs_err, max_rel_err);
-    std::printf("NOTE: Timing will be added next; today is correctness + baseline implementation.\n");
 
     cudaFree(dA); cudaFree(dB); cudaFree(dC);
     return 0;
