@@ -22,3 +22,7 @@ target_link_libraries(gemm_cublas PRIVATE CUDA::cublas)
 
 add_executable(gemm_tiled gemm_tiled.cu)
 set_target_properties(gemm_tiled PROPERTIES CUDA_SEPARABLE_COMPILATION ON)
+
+add_executable(conv_lite_gemm conv_lite_gemm.cu)
+set_target_properties(conv_lite_gemm PROPERTIES CUDA_SEPARABLE_COMPILATION ON)
+target_link_libraries(conv_lite_gemm PRIVATE CUDA::cublas)
