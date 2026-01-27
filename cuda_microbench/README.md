@@ -54,3 +54,15 @@ Meaning
 Record
 - correctness max_abs_err/max_rel_err
 - timing will be captured on Nsight day / microbench suite day
+
+Profiling readiness 
+
+Timing (CUDA events)
+- Programs accept optional warmup and iters:
+  ./gemm_tiled 1024 1024 1024 10 50
+
+Nsight Systems (timeline)
+nsys profile -o nsys_gemm_tiled ./gemm_tiled 1024 1024 1024 10 50
+
+Nsight Compute (kernel metrics)
+ncu --set full --target-processes all ./gemm_tiled 1024 1024 1024 10 50
