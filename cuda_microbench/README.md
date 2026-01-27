@@ -39,3 +39,18 @@ Run
 Record
 - correctness vs CPU
 - (timing added later)
+
+Conv mapped to GEMM (conv-lite)
+
+Run (later)
+./conv_lite_gemm 3 32 32 8 3 3
+
+Meaning
+- C=3, H=W=32 input
+- F=8 filters, 3x3 kernel
+- valid conv, stride=1, pad=0
+- implemented as im2col + cuBLAS GEMM
+
+Record
+- correctness max_abs_err/max_rel_err
+- timing will be captured on Nsight day / microbench suite day
