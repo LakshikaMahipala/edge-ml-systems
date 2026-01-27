@@ -19,3 +19,6 @@ set_target_properties(gemm_cublas PROPERTIES CUDA_SEPARABLE_COMPILATION ON)
 # Link cuBLAS
 find_package(CUDAToolkit REQUIRED)
 target_link_libraries(gemm_cublas PRIVATE CUDA::cublas)
+
+add_executable(gemm_tiled gemm_tiled.cu)
+set_target_properties(gemm_tiled PROPERTIES CUDA_SEPARABLE_COMPILATION ON)
