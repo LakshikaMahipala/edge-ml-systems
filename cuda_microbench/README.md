@@ -30,3 +30,12 @@ Run
 Expected
 - Both print max_abs_err and max_rel_err vs CPU reference.
 - Timing will be added next (CUDA events) for fair comparison and GFLOP/s.
+
+Tiled GEMM (shared memory)
+
+Run 
+./gemm_tiled 512 512 512
+
+Record
+- correctness vs CPU
+- (timing added later)
