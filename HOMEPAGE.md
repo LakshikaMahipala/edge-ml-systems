@@ -21,7 +21,7 @@ Project 1 — TinyML-Gesture-TCN/
 - Status: existing work (will be cleaned later)
 
 Repository Map
-- docs/          Notes, glossary, metrics table, daily log
+- docs/    Notes, glossary, metrics table, daily log
 - inference_bench/  Benchmarking mini-project 
 - TinyML-Gesture-TCN/  TinyML project work
 - .github/workflows/  CI automation (later we will use this for reproducible runs)
@@ -30,6 +30,11 @@ Edge build & deployment
 See docs/edge_build_deployment.md for:
 - reproducible Docker workflow
 - cross-compilation toolchains
+
+CUDA microbench
+- cuda_microbench/README.md (build + run)
+- docs/summary_cuda.md
+- docs/mini_project_2_report.md
 - I/O + decode benchmarks
 - PyTorch vs ONNX Runtime comparison
 - where to record p50/p99 metrics
