@@ -27,3 +27,14 @@ Outputs to record into docs/metrics.md
 - latency: mean, p50, p99
 - throughput (inf/s)
 - build settings: workspace MB, TensorRT version, GPU name
+
+FP16 build + benchmark 
+
+1) Build FP16 engine
+python scripts/build_engine.py --onnx results/model.onnx --engine results/resnet18_fp16.plan --workspace_mb 2048 --fp16
+
+2) Run benchmark and save log
+python scripts/run_trt_benchmark.py --engine results/resnet18_fp16.plan --warmup 200 --iters 1000 --batch 1 --log results/resnet18_fp16_trtexec.txt --run
+
+3) Parse to JSON (p50/p99)
+python scripts/parse_trtexec_log.py --log results/resnet18_fp16_trtexec.txt --out results/resnet18_fp16_summary.json --model resnet18 --precision fp16 --batch 1
