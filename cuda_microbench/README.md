@@ -66,3 +66,21 @@ nsys profile -o nsys_gemm_tiled ./gemm_tiled 1024 1024 1024 10 50
 
 Nsight Compute (kernel metrics)
 ncu --set full --target-processes all ./gemm_tiled 1024 1024 1024 10 50
+
+Mini-project 2 — Suite mode
+
+Run later:
+cd cuda_microbench
+mkdir -p build && cd build
+cmake .. -DCMAKE_BUILD_TYPE=Release
+cmake --build . -j
+cd ..
+chmod +x scripts/run_all.sh
+./scripts/run_all.sh
+
+Parse + plot:
+python scripts/parse_to_csv.py results/run_*.txt results/summary.csv
+python scripts/plot_results.py results/summary.csv results/plot_gflops.png
+
+Where to write conclusions:
+docs/mini_project_2_report.md
