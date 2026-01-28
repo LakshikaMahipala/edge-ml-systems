@@ -1,28 +1,40 @@
 import argparse
-import os
+import subprocess
+from pathlib import Path
 
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--onnx", type=str, required=True)
     ap.add_argument("--engine", type=str, default="results/model_fp32.plan")
     ap.add_argument("--workspace_mb", type=int, default=1024)
+    ap.add_argument("--fp16", action="store_true", help="Enable FP16 build")
+    ap.add_argument("--verbose", action="store_true", help="Verbose TensorRT build log")
+    ap.add_argument("--run", action="store_true", help="Actually execute trtexec now (later when TensorRT is installed)")
     args = ap.parse_args()
 
-    # We call trtexec (standard TensorRT CLI) because it is stable and widely used.
-    # This avoids version-specific Python API pitfalls.
-    cmd = (
-        f"trtexec "
-        f"--onnx={args.onnx} "
-        f"--saveEngine={args.engine} "
-        f"--workspace={args.workspace_mb} "
-        f"--buildOnly "
-    )
+    onnx = Path(args.onnx)
+    engine = Path(args.engine)
+    engine.parent.mkdir(parents=True, exist_ok=True)
 
-    print("RUN (later):")
-    print(cmd)
+    cmd = [
+        "trtexec",
+        f"--onnx={str(onnx)}",
+        f"--saveEngine={str(engine)}",
+        f"--workspace={args.workspace_mb}",
+        "--buildOnly",
+    ]
 
-    # Do not execute now; you will run later on the target machine.
-    # If you later want auto-exec, we can add subprocess.run.
+    if args.fp16:
+        cmd.append("--fp16")
+
+    if args.verbose:
+        cmd.append("--verbose")
+
+    print("CMD:")
+    print(" ".join(cmd))
+
+    if args.run:
+        subprocess.run(cmd, check=True)
 
 if __name__ == "__main__":
     main()
