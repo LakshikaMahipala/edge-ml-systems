@@ -7,7 +7,7 @@ What was built
 - gemm_cublas: vendor baseline (correctness + timing)
 - conv_lite_gemm: conv lowering via im2col + GEMM (timing GEMM-only)
 
-How to reproduce (later)
+How to reproduce 
 - Build: cuda_microbench/README.md
 - Suite run: cuda_microbench/scripts/run_all.sh
 - Parse + plot: scripts/parse_to_csv.py and scripts/plot_results.py
@@ -19,5 +19,5 @@ What to fill when local runs are possible
 - docs/mini_project_2_report.md:
   - key takeaways + Nsight screenshots + reasons
 
-Next (Week 5)
+Next 
 - Begin TensorRT track while FPGA work starts (UART + fixed-point primitives).
