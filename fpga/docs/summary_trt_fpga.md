@@ -24,7 +24,7 @@ Mini-project 3 (report scaffold)
 - Latency budget model + tool to compute speedup bounds
 - FPGA appendix: where FPGA sits in the pipeline (compute vs I/O)
 
-Next week (Week 6)
+Next 
 - Jetson stack study (deployment thinking)
 - FPGA ML kernel v0: INT8 linear layer / small MLP in RTL or HLS
 - Host->FPGA protocol and end-to-end latency measurement (UART ok)
