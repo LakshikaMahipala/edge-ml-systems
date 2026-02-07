@@ -38,3 +38,23 @@ python scripts/run_trt_benchmark.py --engine results/resnet18_fp16.plan --warmup
 
 3) Parse to JSON (p50/p99)
 python scripts/parse_trtexec_log.py --log results/resnet18_fp16_trtexec.txt --out results/resnet18_fp16_summary.json --model resnet18 --precision fp16 --batch 1
+
+
+INT8 PTQ (Week 5 Day 5)
+
+1) Create calibration tensor (placeholder data)
+python scripts/make_calib_data.py --out results/calib/calib_fp32.npy --n 256 --batch 16 --input_size 224
+
+2) Build FP32 engine (existing workflow)
+python scripts/build_engine.py --onnx results/model.onnx --engine results/resnet18_fp32.plan --workspace_mb 2048 --run
+
+3) Build INT8 engine + calibration cache
+python scripts/build_int8_engine.py --onnx results/model.onnx --engine results/resnet18_int8.plan \
+  --calib_npy results/calib/calib_fp32.npy --calib_cache results/calib/resnet18.cache --batch 16 --workspace_mb 2048
+
+4) Compare FP32 vs INT8 (accuracy proxy)
+python scripts/compare_fp32_int8.py --fp32_engine results/resnet18_fp32.plan --int8_engine results/resnet18_int8.plan \
+  --calib_npy results/calib/calib_fp32.npy --n 128 --batch 16
+
+Important
+- For real accuracy delta, replace FakeData with a real dataset matching the model’s label space (ImageNet val for torchvision ImageNet models).
