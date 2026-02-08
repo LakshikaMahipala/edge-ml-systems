@@ -21,7 +21,7 @@ Mini-project 4 (host app)
 - overlay: latency + FPS + rolling p50/p99
 - FPGA offload point documented in diagram
 
-Next week (Week 7)
+Next 
 - Pipeline + queueing model
 - FPGA: pipeline the MLP datapath (throughput vs latency)
 - Host async driver + backpressure behavior
