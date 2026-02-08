@@ -1,0 +1,15 @@
+[
+  {
+    "op": "INT8_DWCONV1D_K3",
+    "in_addr": 0,
+    "out_addr": 4096,
+    "w_addr": 8192,
+    "params": {"C": 4, "L": 16, "K": 3, "SHIFT": 7}
+  },
+  {
+    "op": "RELU_INT8",
+    "in_addr": 4096,
+    "out_addr": 4096,
+    "params": {"N": 56}
+  }
+]
