@@ -1,0 +1,7 @@
+{
+  "req_id": 7,
+  "op": "INT8_FC",
+  "params": {"IN": 8, "OUT": 4, "SHIFT": 7},
+  "input_format": "int8[8]",
+  "output_format": "int8[4]"
+}
