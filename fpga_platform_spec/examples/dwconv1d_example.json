@@ -1,0 +1,7 @@
+{
+  "req_id": 9,
+  "op": "INT8_DWCONV1D_K3",
+  "params": {"C": 4, "L": 16, "K": 3, "SHIFT": 7},
+  "input_format": "int8[4][16]",
+  "output_format": "int8[4][14]"
+}
