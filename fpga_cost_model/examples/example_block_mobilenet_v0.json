@@ -1,0 +1,10 @@
+[
+  {
+    "op": "INT8_DWCONV1D_K3",
+    "params": {"C": 4, "L": 16, "K": 3, "SHIFT": 7}
+  },
+  {
+    "op": "RELU_INT8",
+    "params": {"N": 56}
+  }
+]
