@@ -12,3 +12,8 @@ Toy IR
 
 Next
 Week 9 Day 2: install TVM and compile a simple model, then inspect Relay IR.
+
+
+- scripts/relay_op_counter.py: counts common ops in saved Relay text
+- scripts/relay_pattern_rewrite_toy.py: toy rewrite to illustrate fusion idea
+- docs/05_passes_opcount_and_rewrite.md
