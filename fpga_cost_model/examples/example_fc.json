@@ -1,0 +1,6 @@
+[
+  {
+    "op": "INT8_FC",
+    "params": {"IN": 128, "OUT": 32, "SHIFT": 7}
+  }
+]
