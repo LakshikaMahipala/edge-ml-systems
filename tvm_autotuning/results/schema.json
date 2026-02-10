@@ -1,0 +1,18 @@
+{
+  "fields": [
+    "date",
+    "device",
+    "workload",
+    "shape",
+    "trials",
+    "baseline_p50_ms",
+    "baseline_p99_ms",
+    "tuned_p50_ms",
+    "tuned_p99_ms",
+    "speedup_p50",
+    "speedup_p99",
+    "tuning_log_path",
+    "best_config_path",
+    "notes"
+  ]
+}
