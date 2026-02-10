@@ -1,0 +1,1 @@
+config_id,op_type,IN,OUT,C,L,K,SHIFT,bytes_in,bytes_out,bytes_total,macs,cycles_est,interface,baud,f_clk_mhz,y_fpga_est_io_ms,y_fpga_est_compute_ms,y_fpga_est_total_ms,y_cpu_measured_ms,y_gpu_measured_ms,seed,notes
