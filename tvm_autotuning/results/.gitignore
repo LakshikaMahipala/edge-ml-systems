@@ -1,0 +1,6 @@
+*
+!.gitignore
+!schema.json
+!template_results.csv
+!tiling_proxy_scores.csv
+!tiling_candidates.jsonl
