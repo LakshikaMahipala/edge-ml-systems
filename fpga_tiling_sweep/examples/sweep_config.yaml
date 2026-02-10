@@ -1,0 +1,15 @@
+global:
+  baud: 115200
+  f_clk_mhz: 100
+  II_values: [1, 2, 4]
+
+fc:
+  IN_values: [64, 128, 256, 512, 1024]
+  OUT_values: [16, 32, 64, 128, 256]
+  UNROLL_values: [1, 2, 4, 8, 16]
+
+dwconv1d:
+  C_values: [4, 8, 16, 32, 64]
+  L_values: [16, 32, 64, 128, 256]
+  K: 3
+  UNROLL_C_values: [1, 2, 4, 8, 16]
