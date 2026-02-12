@@ -1,0 +1,5 @@
+{
+  "mode": "fp32_or_qat_int8",
+  "val_acc": 0.0,
+  "p50_ms_est": 0.0
+}
