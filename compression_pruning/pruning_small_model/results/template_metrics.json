@@ -1,0 +1,7 @@
+{
+  "mode": "baseline_or_pruned",
+  "val_acc_before": 0.0,
+  "val_acc_after": 0.0,
+  "p50_ms_est_before": 0.0,
+  "p50_ms_est_after": 0.0
+}
