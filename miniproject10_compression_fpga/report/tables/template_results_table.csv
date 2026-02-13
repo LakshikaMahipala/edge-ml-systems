@@ -1,0 +1,13 @@
+module,experiment,metric,value,notes
+compression_quantization,fp32,val_acc,,
+compression_quantization,qat_int8,val_acc,,
+compression_quantization,fp32,p50_ms_est,,
+compression_quantization,qat_int8,p50_ms_est,,
+compression_pruning,unstructured,model_sparsity,,
+compression_pruning,unstructured,val_acc_after,,
+compression_pruning,structured,param_reduction,,
+compression_pruning,structured,val_acc_after,,
+bnn,fp32,val_acc,,
+bnn,bnn,val_acc,,
+fpga_bnn_xnor_popcount,known_vector_tb,pass,,
+fpga_bnn_xnor_popcount,random_regression,pass,,
