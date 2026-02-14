@@ -1,0 +1,3 @@
+arch_id,rank_reduced_train,rank_snip,rank_gradnorm,rank_fpga,score_reduced_train,snip_score,gradnorm_score,final_score_fpga,hw_cost_sum,notes
+A,,,,,,,,,,
+B,,,,,,,,,,
