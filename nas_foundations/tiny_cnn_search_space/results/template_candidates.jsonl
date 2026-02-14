@@ -1,0 +1,1 @@
+{"arch_id":"0","arch":{"stem_channels":16,"head_channels":128,"num_classes":10,"stages":[{"depth":2,"out_ch":16,"block":"mbconv","k":3,"exp":2,"se":0}]}}
