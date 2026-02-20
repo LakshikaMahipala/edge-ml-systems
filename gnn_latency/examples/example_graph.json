@@ -1,0 +1,12 @@
+{
+  "globals": {"device": "fpga_proxy_v0", "batch": 1, "precision": "int8"},
+  "nodes": [
+    {"node_id": "n0", "op_type": "conv", "attrs": {"cin": 16, "cout": 16, "h": 32, "w": 32, "k": 3, "stride": 1}},
+    {"node_id": "n1", "op_type": "relu", "attrs": {}},
+    {"node_id": "n2", "op_type": "conv", "attrs": {"cin": 16, "cout": 16, "h": 32, "w": 32, "k": 3, "stride": 1}}
+  ],
+  "edges": [
+    {"src": "n0", "dst": "n1", "attrs": {"tensor_bytes": 65536}},
+    {"src": "n1", "dst": "n2", "attrs": {"tensor_bytes": 65536}}
+  ]
+}
