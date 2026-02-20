@@ -1,0 +1,1 @@
+{"case_id":"conv3_16","op":"conv3","cin":16,"cout":16,"h":32,"w":32,"k":3,"dtype":"int8","note":"代表 conv3","fpga":{"board":"TBD","clock_mhz":0},"latency_p50_us":0.0,"latency_p99_us":0.0,"runs":0,"warmup":0}
