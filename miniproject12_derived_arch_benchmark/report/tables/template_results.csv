@@ -1,0 +1,5 @@
+model_name,source,params,macs,latency_p50_ms,latency_p99_ms,notes
+baseline_smallcnn,manual,,,,,
+darts_discrete,genotype,,,,,
+oneshot_discrete,subnet,,,,,
+darts_latency_aware,genotype+latency,,,,,
