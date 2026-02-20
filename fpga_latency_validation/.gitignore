@@ -1,0 +1,5 @@
+*
+!.gitignore
+!template_measurements.jsonl
+!template_predictions.jsonl
+!template_validation.json
