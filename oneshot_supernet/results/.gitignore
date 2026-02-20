@@ -1,0 +1,4 @@
+*
+!.gitignore
+!template_subnet_scores.jsonl
+!template_best_subnet.json
