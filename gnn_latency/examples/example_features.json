@@ -1,0 +1,5 @@
+{
+  "nodes": [{"op_type": "conv", "cin": 16, "cout": 16, "h": 32, "w": 32, "k": 3, "stride": 1}],
+  "edges": [{"src": "n0", "dst": "n1", "tensor_bytes": 65536}],
+  "globals": {"device": "fpga_proxy_v0", "batch": 1, "precision": "int8"}
+}
