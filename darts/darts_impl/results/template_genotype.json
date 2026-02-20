@@ -1,0 +1,1 @@
+{"genotype":[{"cell":0,"edge":0,"best_op":"conv3","probs":[0.33,0.33,0.33],"op_names":["skip","conv3","conv5"]}]}
