@@ -1,0 +1,4 @@
+[
+  {"arch":{"block":"conv3","width":16,"depth":2},"hw":{"P":16,"tile":16,"ii_factor":1.0}},
+  {"arch":{"block":"conv5","width":24,"depth":3},"hw":{"P":64,"tile":32,"ii_factor":1.2}}
+]
