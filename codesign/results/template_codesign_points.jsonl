@@ -1,0 +1,1 @@
+{"id":"P0000","arch":{"block":"conv3","width":16,"depth":2},"hw":{"P":16,"tile":16,"ii_factor":1.0},"acc":0.0,"latency":0.0,"energy":0.0}
