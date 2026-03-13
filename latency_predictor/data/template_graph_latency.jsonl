@@ -1,0 +1,1 @@
+{"graph_id":"G00000","globals":{"batch":1,"device":"proxy","precision":"int8"},"nodes":[],"edges":[],"target":{"latency_p50_ms":0.0}}
