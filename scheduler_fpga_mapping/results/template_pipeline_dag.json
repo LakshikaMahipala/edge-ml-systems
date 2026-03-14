@@ -1,0 +1,1 @@
+{"devices":[{"id":"cpu"}],"tasks":[{"id":"preprocess","costs":{"cpu":1.0}}],"edges":[]}
