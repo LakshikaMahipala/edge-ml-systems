@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Latency Registry",
+  "type": "object",
+  "required": ["entries"],
+  "properties": {
+    "entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["kernel_id","device","latency_p50_ms"],
+        "properties": {
+          "kernel_id": {"type": "string"},
+          "device": {"type": "string", "enum": ["cpu","gpu","fpga"]},
+          "latency_p50_ms": {"type": "number"},
+          "latency_p99_ms": {"type": "number"},
+          "meta": {"type": "object"}
+        }
+      }
+    }
+  }
+}
