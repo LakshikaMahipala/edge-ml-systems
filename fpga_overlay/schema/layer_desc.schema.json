@@ -1,0 +1,39 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ConvBNReLU Layer Descriptor",
+  "type": "object",
+  "required": [
+    "op","input_addr","output_addr","weight_addr","bn_addr",
+    "Cin","Cout","H","W","K","stride","padding",
+    "tiling"
+  ],
+  "properties": {
+    "op": { "type": "string", "enum": ["conv_bn_relu"] },
+    "input_addr": { "type": "integer" },
+    "output_addr": { "type": "integer" },
+    "weight_addr": { "type": "integer" },
+    "bn_addr": { "type": "integer" },
+
+    "Cin": { "type": "integer", "minimum": 1 },
+    "Cout": { "type": "integer", "minimum": 1 },
+    "H": { "type": "integer", "minimum": 1 },
+    "W": { "type": "integer", "minimum": 1 },
+
+    "K": { "type": "integer", "enum": [1,3,5] },
+    "stride": { "type": "integer", "enum": [1,2] },
+    "padding": { "type": "integer", "minimum": 0 },
+
+    "dtype": { "type": "string", "enum": ["int8"], "default": "int8" },
+
+    "tiling": {
+      "type": "object",
+      "required": ["Tm","Tn","Tr","Tc"],
+      "properties": {
+        "Tm": { "type": "integer", "minimum": 1 },
+        "Tn": { "type": "integer", "minimum": 1 },
+        "Tr": { "type": "integer", "minimum": 1 },
+        "Tc": { "type": "integer", "minimum": 1 }
+      }
+    }
+  }
+}
