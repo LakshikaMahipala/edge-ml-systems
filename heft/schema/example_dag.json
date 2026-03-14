@@ -1,0 +1,16 @@
+{
+  "devices": [
+    {"id": "cpu", "note": "host"},
+    {"id": "gpu", "note": "pcie-attached"},
+    {"id": "fpga", "note": "uart/proxy"}
+  ],
+  "tasks": [
+    {"id": "pre",  "costs": {"cpu": 1.0, "gpu": 2.0, "fpga": 3.0}},
+    {"id": "infer","costs": {"cpu": 15.0,"gpu": 2.5, "fpga": 4.0}},
+    {"id": "post", "costs": {"cpu": 1.2, "gpu": 2.2, "fpga": 3.2}}
+  ],
+  "edges": [
+    {"src": "pre", "dst": "infer", "bytes": 262144},
+    {"src": "infer", "dst": "post", "bytes": 1024}
+  ]
+}
