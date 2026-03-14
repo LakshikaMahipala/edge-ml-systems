@@ -1,0 +1,14 @@
+{
+  "tasks": [
+    {"id":"preprocess","kernel_id":"preprocess"},
+    {"id":"infer1","kernel_id":"conv3_block"},
+    {"id":"infer2","kernel_id":"conv3_block"},
+    {"id":"postprocess","kernel_id":"postprocess"}
+  ],
+  "edges": [
+    {"src":"preprocess","dst":"infer1","bytes":262144},
+    {"src":"infer1","dst":"infer2","bytes":262144},
+    {"src":"infer2","dst":"postprocess","bytes":1024}
+  ],
+  "devices": ["cpu","gpu","fpga"]
+}
