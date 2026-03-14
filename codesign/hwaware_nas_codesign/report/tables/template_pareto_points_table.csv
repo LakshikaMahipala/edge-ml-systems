@@ -1,0 +1,4 @@
+label,id,block,width,depth,P,tile,ii_factor,acc_proxy,latency_proxy,energy_proxy,comments
+fast,,,,,,,,,,,
+balanced,,,,,,,,,,,
+accurate,,,,,,,,,,,
