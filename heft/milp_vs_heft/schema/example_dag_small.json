@@ -1,0 +1,20 @@
+{
+  "devices": [
+    {"id": "cpu"},
+    {"id": "gpu"},
+    {"id": "fpga"}
+  ],
+  "tasks": [
+    {"id": "A", "costs": {"cpu": 3.0, "gpu": 1.5, "fpga": 2.2}},
+    {"id": "B", "costs": {"cpu": 2.0, "gpu": 1.2, "fpga": 1.6}},
+    {"id": "C", "costs": {"cpu": 5.0, "gpu": 2.0, "fpga": 2.8}},
+    {"id": "D", "costs": {"cpu": 1.0, "gpu": 0.8, "fpga": 1.1}},
+    {"id": "E", "costs": {"cpu": 4.0, "gpu": 1.8, "fpga": 2.5}}
+  ],
+  "edges": [
+    {"src": "A", "dst": "C", "bytes": 65536},
+    {"src": "B", "dst": "C", "bytes": 65536},
+    {"src": "C", "dst": "D", "bytes": 4096},
+    {"src": "C", "dst": "E", "bytes": 4096}
+  ]
+}
