@@ -1,0 +1,8 @@
+{
+  "entries": [
+    {"kernel_id":"preprocess","device":"cpu","latency_p50_ms":1.0,"meta":{"note":"proxy"}},
+    {"kernel_id":"conv3_block","device":"gpu","latency_p50_ms":2.0,"meta":{"note":"proxy"}},
+    {"kernel_id":"conv3_block","device":"fpga","latency_p50_ms":3.5,"meta":{"note":"proxy"}},
+    {"kernel_id":"postprocess","device":"cpu","latency_p50_ms":1.2,"meta":{"note":"proxy"}}
+  ]
+}
