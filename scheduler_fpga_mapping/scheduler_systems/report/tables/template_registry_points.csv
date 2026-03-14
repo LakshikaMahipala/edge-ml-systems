@@ -1,0 +1,5 @@
+kernel_id,device,latency_p50_ms,latency_p99_ms,clock_mhz,precision,source,notes
+preprocess,cpu,,,,,,proxy,
+conv3_block,gpu,,,,,,proxy,
+conv3_block,fpga,,,,,,proxy,
+postprocess,cpu,,,,,,proxy,
