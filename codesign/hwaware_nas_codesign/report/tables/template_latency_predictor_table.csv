@@ -1,0 +1,5 @@
+model,task,metric,value,notes
+MLP_regressor,regression,spearman,,proxy dataset unless real measurements
+MLP_regressor,regression,mape,,
+pairwise_ranker,ranking,pair_acc,,
+pairwise_ranker,ranking,spearman_latency_vs_score,,
