@@ -1,0 +1,6 @@
+component,artifact_path,status,notes
+Pareto basics,pareto_week15/,done,
+GNN latency spec,gnn_latency_week15/,done,
+Latency predictor baselines,latency_predictor_week15/,done,
+Co-design blueprint,codesign_week15/docs/,done,
+Co-design loop,codesign_week15/src/,done,proxy-based
