@@ -1,2 +1,5 @@
 *
 !.gitignore
+!template_systems_budget_table.csv
+!template_schedule_comparison_table.csv
+!template_registry_points.csv
