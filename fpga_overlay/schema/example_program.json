@@ -1,0 +1,20 @@
+{
+  "program": [
+    {
+      "op": "conv_bn_relu",
+      "input_addr": 4096,
+      "output_addr": 8192,
+      "weight_addr": 12288,
+      "bn_addr": 16384,
+      "Cin": 16,
+      "Cout": 24,
+      "H": 32,
+      "W": 32,
+      "K": 3,
+      "stride": 1,
+      "padding": 1,
+      "dtype": "int8",
+      "tiling": { "Tm": 8, "Tn": 8, "Tr": 8, "Tc": 8 }
+    }
+  ]
+}
