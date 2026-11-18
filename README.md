@@ -16,6 +16,7 @@ This repository collects my work on ML systems and hardware-aware AI: hand-writt
 | 04 | [**INT8 NN kernels in SystemVerilog**](projects/04-fpga-int8-kernels) | FC (parallel and sequential) and depthwise-conv layers, bit-exact against a Python golden model | SystemVerilog, Python | 🟢 verified in CI |
 | 05 | [**Binary NN XNOR-popcount core**](projects/05-fpga-bnn-xnor-popcount) | A 32-element MAC replaced by XNOR + popcount; random-stream testbench | Verilog, Python | 🟢 verified in CI |
 | 06 | [**TinyML gesture recognition**](projects/06-tinyml-gesture-esp32) | TCN on 6-axis IMU data, INT8 TFLite (263 KB) for an Arduino Nano ESP32 | TensorFlow, TFLite Micro | ✅ 66 % accuracy (5 classes) |
+| 07 | [**Gauge reader**](projects/07-gauge-reader) | Reading gauges automatically with edge AI | — | 🚧 code being added |
 
 **Status key:** ✅ measured results committed · 🟢 verified by automated tests/simulation · 🟡 implemented, hardware measurements pending
 
@@ -25,7 +26,7 @@ This repository collects my work on ML systems and hardware-aware AI: hand-writt
 
 ## Repository layout
 ```
-projects/      six self-contained projects, each with README, code, tests and reproduction steps
+projects/      self-contained projects, each with README, code, tests and reproduction steps
 experiments/   supporting studies and prototypes
 notes/         study notes and decision guides
 tools/         small helpers (latency budget, MAC estimator)
