@@ -1,5 +1,5 @@
 from __future__ import annotations
-from typing import Dict[str, float], Tuple
+from typing import Dict, Tuple
 import torch
 import math
 
