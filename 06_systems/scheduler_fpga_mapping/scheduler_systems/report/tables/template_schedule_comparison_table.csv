@@ -1,3 +1,0 @@
-dag_name,bw_GBps,overhead_ms,makespan_heft_ms,makespan_opt_ms,gap_percent,notes
-example_pipeline,,,,,,,
-example_small,,,,,,,

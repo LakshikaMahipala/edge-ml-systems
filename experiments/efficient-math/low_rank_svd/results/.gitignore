@@ -1,0 +1,8 @@
+# Large or binary artifacts stay out of git; small CSV/JSON results are committed.
+*.pt
+*.pth
+*.onnx
+*.plan
+*.engine
+*.npy
+*.npz

@@ -1,5 +1,0 @@
-{
-  "mode": "fp32_or_bnn",
-  "val_acc": 0.0,
-  "p50_ms_est": 0.0
-}
