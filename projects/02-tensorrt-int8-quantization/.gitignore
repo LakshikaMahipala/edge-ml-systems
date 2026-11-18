@@ -1,0 +1,4 @@
+data/
+results/**/*.onnx
+results/**/*.plan
+results/**/*.cache

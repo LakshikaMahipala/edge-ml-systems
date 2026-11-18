@@ -1,53 +1,46 @@
 # edge-ml-systems
 
-**ML hardware & systems: measuring and optimizing AI inference across GPUs, FPGAs and microcontrollers.**
+**Making neural networks run fast and small on real hardware: GPUs, FPGAs and microcontrollers.**
 
-This repository is my hands-on build log for ML systems work: CUDA kernels, TensorRT deployment, INT8 FPGA kernels in SystemVerilog, hardware-aware neural architecture search, and TinyML on microcontrollers. The common thread is one question: *how fast, how small and how efficient can a model run on a given piece of hardware, and how do we measure that honestly?*
+[![CI](https://github.com/LakshikaMahipala/edge-ml-systems/actions/workflows/ci.yml/badge.svg)](https://github.com/LakshikaMahipala/edge-ml-systems/actions/workflows/ci.yml)
 
----
+This repository collects my work on ML systems and hardware-aware AI: hand-written CUDA kernels, TensorRT INT8 deployment, INT8 and binary neural-network hardware in SystemVerilog, and TinyML on an ESP32. Every project states what was measured and how to reproduce it, and separates *verified* from *pending* results.
 
-## ⭐ Featured work
+## ⭐ Projects
 
-| Area | What's here | Path | Status |
-|---|---|---|---|
-| **CUDA kernels** | Vector add, naive GEMM, shared-memory tiled GEMM, convolution-as-GEMM, cuBLAS baseline; CUDA-events timing; scripts to run, parse to CSV and plot | [`02_cuda/cuda_microbench`](02_cuda/cuda_microbench) | 🟡 Code ready · results pending |
-| **TensorRT deployment** | PyTorch → ONNX → TensorRT engines (FP32/FP16/INT8 with calibration data), `trtexec` log parsing, FP32-vs-INT8 comparison | [`01_benchmarks/tensorrt_bench`](01_benchmarks/tensorrt_bench) | 🟡 Code ready · results pending |
-| **Inference benchmarking harness** | Warm-up, p50/p99 latency, throughput, pre/post-processing breakdown, ONNX Runtime and video-decode benchmarks | [`01_benchmarks/inference_bench`](01_benchmarks/inference_bench) | 🟡 Code ready · results pending |
-| **INT8 FPGA kernels (SystemVerilog)** | Fixed-point library (add/mul/saturate/scale-shift), INT8 dot product + requantization, INT8 fully-connected layer (v0 and pipelined v1), INT8 depthwise Conv1D — each with a testbench | [`03_fpga/fpga`](03_fpga/fpga) | 🟢 RTL + testbenches |
-| **Binary neural network on FPGA** | XNOR-popcount dot-product core in Verilog with a Python golden reference model | [`03_fpga/fpga_bnn_xnor_popcount`](03_fpga/fpga_bnn_xnor_popcount) | 🟢 RTL + testbench |
-| **Hardware-aware NAS** | DARTS and latency-aware DARTS, zero-cost proxies, latency-predictor dataset + models (sklearn / MLP, Spearman rank evaluation), FPGA cost model for ranking architectures | [`04_nas`](04_nas), [`03_fpga/fpga_cost_model`](03_fpga/fpga_cost_model) | 🟡 Code ready · results pending |
-| **TinyML gesture recognition** | 5-class gesture classifier from 6-axis IMU data (HGAG-DATA1), trained, quantized and deployed on an Arduino Nano ESP32 | [`99_misc/TinyML-Gesture-TCN`](99_misc/TinyML-Gesture-TCN) | ✅ Measured: **66 % test accuracy** (258 test samples, macro-F1 0.64) |
+| # | Project | What it shows | Stack | Status |
+|---|---|---|---|---|
+| 01 | [**CUDA SGEMM optimization**](projects/01-cuda-gemm-optimization) | Naive → shared-memory tiling → 2D register blocking, each checked against cuBLAS, with an arithmetic-intensity analysis | CUDA C++, cuBLAS | 🟡 code complete · T4 results pending |
+| 02 | [**TensorRT FP32 / FP16 / INT8**](projects/02-tensorrt-int8-quantization) | Accuracy *and* latency of INT8 post-training quantization on a T4, with entropy calibration on a real labelled dataset | TensorRT 10, PyTorch, ONNX | 🟡 pipeline complete · T4 results pending |
+| 03 | [**Inference benchmark harness**](projects/03-inference-benchmark-harness) | p50/p99 latency, pre/post-processing breakdown, transfer cost and queueing effects | PyTorch, ONNX Runtime, C++/OpenCV | 🟡 CPU tools verified |
+| 04 | [**INT8 NN kernels in SystemVerilog**](projects/04-fpga-int8-kernels) | FC (parallel and sequential) and depthwise-conv layers, bit-exact against a Python golden model | SystemVerilog, Python | 🟢 verified in CI |
+| 05 | [**Binary NN XNOR-popcount core**](projects/05-fpga-bnn-xnor-popcount) | A 32-element MAC replaced by XNOR + popcount; random-stream testbench | Verilog, Python | 🟢 verified in CI |
+| 06 | [**TinyML gesture recognition**](projects/06-tinyml-gesture-esp32) | TCN on 6-axis IMU data, INT8 TFLite (263 KB) for an Arduino Nano ESP32 | TensorFlow, TFLite Micro | ✅ 66 % accuracy (5 classes) |
 
-**Status key:** ✅ measured results in the repo · 🟢 implemented and verified in simulation/testbench · 🟡 implemented, measurements still to be run and committed.
-I keep this table honest: a result is only marked ✅ when the raw numbers are committed.
+**Status key:** ✅ measured results committed · 🟢 verified by automated tests/simulation · 🟡 implemented, hardware measurements pending
 
----
+## 🧪 Experiments and 📚 notes
+- [`experiments/`](experiments): smaller studies (Winograd, FFT convolution, Strassen, HEFT scheduling, ring all-reduce, FedAvg, hardware-aware NAS, compression, FPGA cost models, TVM). Two bugs were found and fixed during the latest review.
+- [`notes/`](notes): deployment decision guides (TensorRT vs TVM vs FPGA, Jetson, DLA), FPGA platform spec, micro-NPU survey.
 
-## 🗂️ Repository map
+## Repository layout
+```
+projects/      six self-contained projects, each with README, code, tests and reproduction steps
+experiments/   supporting studies and prototypes
+notes/         study notes and decision guides
+tools/         small helpers (latency budget, MAC estimator)
+.github/       CI: Python tests, golden-model tests, RTL simulation (Icarus Verilog)
+```
 
-| Folder | Contents |
-|---|---|
-| [`01_benchmarks/`](01_benchmarks) | Inference, transfer and TensorRT benchmarks |
-| [`02_cuda/`](02_cuda) | CUDA micro-benchmarks and kernels |
-| [`03_fpga/`](03_fpga) | FPGA kernels, fixed-point library, BNN core, overlays, cost models, host (UART) tools |
-| [`04_nas/`](04_nas) | NAS (DARTS, RL, one-shot, zero-cost), latency predictors, Pareto analysis, co-design |
-| [`05_compilers/`](05_compilers) | TVM Relay, TVM auto-tuning, LLVM IR basics |
-| [`06_systems/`](06_systems) | Amdahl analysis, HEFT scheduling, pipeline models, micro-NPU survey |
-| [`07_distributed/`](07_distributed) | Distributed and federated learning notes |
-| [`08_miniprojects/`](08_miniprojects) | Smaller self-contained experiments (compression on FPGA, NAS ranking, efficient maths) |
-| [`docs/`](docs) | Decision guides (TensorRT vs TVM vs FPGA, Jetson deployment), checklists, results policy |
-| [`00_home/HOMEPAGE.md`](00_home/HOMEPAGE.md) | Detailed learning path and project notes |
+## Continuous integration
+Every push runs:
+- golden-model unit tests for both FPGA projects (pytest)
+- RTL simulation of all five testbenches with Icarus Verilog (bit-exact comparison + cycle counts)
+- CPU checks of the experiments (Winograd, FFT conv, ring all-reduce)
+- a syntax check of all Python code
 
----
-
-## 🛠️ Tools & skills used
-CUDA C++ · cuBLAS · TensorRT · ONNX / ONNX Runtime · PyTorch · TVM · SystemVerilog / Verilog · Vivado · Python (NumPy, scikit-learn) · Arduino / ESP32 · CMake · Git
-
-## 🗺️ Next steps
-- Run the CUDA and TensorRT benchmarks on an NVIDIA T4 and commit result tables and plots
-- Synthesize the INT8 FPGA kernels and report resource use (LUT/DSP/BRAM) and timing
-- Validate the latency predictor against measured hardware latency
+## Skills
+CUDA C++ · cuBLAS · TensorRT · ONNX · PyTorch · TensorFlow Lite Micro · SystemVerilog / Verilog · fixed-point arithmetic · Python (NumPy, pandas) · C/C++ · CMake · Git / GitHub Actions
 
 ---
-
-**Author:** Lakshika Padmamali · Embedded Engineer · [GitHub profile](https://github.com/LakshikaMahipala)
+**Author:** Lakshika Padmamali · Embedded Engineer · [GitHub](https://github.com/LakshikaMahipala)

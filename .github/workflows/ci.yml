@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  python:
+    name: Python checks and golden-model tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install numpy pandas matplotlib pytest
+      - name: Syntax check all Python files
+        run: python -m compileall -q projects experiments tools
+      - name: INT8 kernel golden model
+        run: make -C projects/04-fpga-int8-kernels test
+      - name: BNN golden model
+        run: make -C projects/05-fpga-bnn-xnor-popcount test
+      - name: Experiments that run on CPU
+        run: |
+          (cd experiments/efficient-math/winograd && python src/benchmark_winograd.py)
+          (cd experiments/efficient-math/fft_conv && python src/benchmark_fft_conv.py)
+          (cd experiments/distributed-learning/distributed && python scripts/ring_allreduce_sim.py --N 8 --L 4096)
+          (cd experiments/distributed-learning/distributed && python scripts/ring_reduce_scatter_only.py --N 8 --L 4096)
+
+  rtl:
+    name: RTL simulation (Icarus Verilog)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install numpy pytest
+      - run: sudo apt-get update && sudo apt-get install -y iverilog
+      - name: INT8 kernels (fxp ops, FC, sequential FC, depthwise conv)
+        run: make -C projects/04-fpga-int8-kernels sim
+      - name: BNN XNOR-popcount core
+        run: make -C projects/05-fpga-bnn-xnor-popcount sim
